@@ -141,7 +141,7 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
             {error && (
               <div className="flex items-start gap-3 p-4 rounded-md bg-red-50 border border-red-100 text-red-800 mb-4 animate-in fade-in-0 duration-300">
                 <TriangleAlert className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">{error}</p>
+                <p className="text-red-800 text-sm">{error}</p>
               </div>
             )}
 
@@ -158,7 +158,7 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
               <p className="text-blue-700 text-sm font-bold mb-3">Ejemplos para prueba:</p>
-              <ul className="text-blue-600 text-xs space-y-2">
+              <ul className="text-blue-600 text-sm space-y-2">
                 <li>• Ingrese cualquier CUIT válido para continuar.</li>
                 <li>• Ingrese texto o números incompletos para simular datos no válidos.</li>
                 <li>• Ingrese "11-11111111-1" para simular empresa ya registrada.</li>

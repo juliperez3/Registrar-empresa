@@ -144,7 +144,7 @@ export function IngresarProyecto({ onProyectoValidado }: IngresarProyectoProps) 
             {error && (
               <div className="flex items-start gap-3 p-4 rounded-md bg-red-50 border border-red-100 text-red-800 mb-4 animate-in fade-in-0 duration-300">
                 <TriangleAlert className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
-                <p className="text-red-800">{error}</p>
+                <p className="text-red-800 text-sm">{error}</p>
               </div>
             )}
 
@@ -175,7 +175,7 @@ export function IngresarProyecto({ onProyectoValidado }: IngresarProyectoProps) 
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
               <p className="text-blue-700 text-sm font-bold mb-3">Ejemplos para prueba:</p>
-              <ul className="text-blue-600 text-xs space-y-2">
+              <ul className="text-blue-600 text-sm space-y-2">
                 <li>• Ingrese cualquier número válido (ej: 12345) para ver un proyecto válido</li>
                 <li>
                   • Ingrese <strong>555</strong> para simular que el proyecto no está en estado "En evaluación"
