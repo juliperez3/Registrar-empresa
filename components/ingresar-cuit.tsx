@@ -2,12 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2, Building2, AlertCircle } from "lucide-react"
 
 interface IngresarCuitProps {
@@ -19,6 +18,16 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
+  // Auto-hide error after 5 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("")
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [error])
+
   const validarCuit = (cuit: string): boolean => {
     // Validación básica de CUIT (11 dígitos)
     const cuitLimpio = cuit.replace(/[-\s]/g, "")
@@ -29,12 +38,12 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
     e.preventDefault()
 
     if (!cuitEmpresa.trim()) {
-      setError("Debe ingresar el CUIT de la empresa")
+      setError("Los datos ingresados no son válidos. Intenta nuevamente.")
       return
     }
 
     if (!validarCuit(cuitEmpresa)) {
-      setError("Datos ingresados inconsistentes. Intente nuevamente")
+      setError("Los datos ingresados no son válidos. Intenta nuevamente.")
       // Limpiar el campo automáticamente cuando hay error de datos no válidos
       setCuitEmpresa("")
       return
@@ -60,7 +69,7 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
 
       switch (error.message) {
         case "EMPRESA_EXISTENTE":
-          errorMessage = `La empresa (${cuitEmpresa}) ya está registrada en el sistema`
+          errorMessage = "La empresa ya se encuentra registrada en el sistema"
           break
       }
 
@@ -130,10 +139,10 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
             </div>
 
             {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
+              <div className="flex items-start gap-3 p-4 rounded-md bg-red-50 border border-red-100 text-red-800 mb-4 animate-in fade-in-0 duration-300">
+                <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">{error}</p>
+              </div>
             )}
 
             <Button type="submit" className="w-full" disabled={loading}>

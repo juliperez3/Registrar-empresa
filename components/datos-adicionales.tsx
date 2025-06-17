@@ -2,12 +2,11 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { ArrowLeft, Building2, Loader2, AlertCircle } from "lucide-react"
 import type { DatosEmpresa } from "@/app/page"
 
@@ -26,6 +25,16 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+
+  // Auto-hide error after 5 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError("")
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [error])
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
@@ -61,7 +70,7 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
 
     const validationError = validarDatos()
     if (validationError) {
-      setError("Datos ingresados inconsistentes. Intente nuevamente")
+      setError("Los datos ingresados no son válidos. Intenta nuevamente.")
       return
     }
 
@@ -174,10 +183,10 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
             </div>
 
             {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
+              <div className="flex items-start gap-3 p-4 rounded-md bg-red-50 border border-red-100 text-red-800 mb-4 animate-in fade-in-0 duration-300">
+                <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                <p className="text-red-800">{error}</p>
+              </div>
             )}
 
             <div className="flex justify-end gap-3">
