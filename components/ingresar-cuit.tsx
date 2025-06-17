@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Loader2, Building2, AlertCircle } from "lucide-react"
+import { Loader2, Building2, TriangleAlert } from "lucide-react"
 
 interface IngresarCuitProps {
   onCuitValidado: (cuit: string) => void
@@ -140,7 +140,7 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
 
             {error && (
               <div className="flex items-start gap-3 p-4 rounded-md bg-red-50 border border-red-100 text-red-800 mb-4 animate-in fade-in-0 duration-300">
-                <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+                <TriangleAlert className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
                 <p className="text-red-800">{error}</p>
               </div>
             )}
