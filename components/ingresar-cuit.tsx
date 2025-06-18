@@ -39,13 +39,13 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
 
     if (!cuitEmpresa.trim()) {
       setError("Los datos ingresados no son válidos. Intenta nuevamente.")
+      setCuitEmpresa("") // Clear field for empty input
       return
     }
 
     if (!validarCuit(cuitEmpresa)) {
       setError("Los datos ingresados no son válidos. Intenta nuevamente.")
-      // Limpiar el campo automáticamente cuando hay error de datos no válidos
-      setCuitEmpresa("")
+      setCuitEmpresa("") // Clear field for invalid CUIT
       return
     }
 
@@ -74,8 +74,7 @@ export function IngresarCuit({ onCuitValidado }: IngresarCuitProps) {
       }
 
       setError(errorMessage)
-      // Limpiar el campo automáticamente cuando hay error de empresa ya registrada
-      setCuitEmpresa("")
+      setCuitEmpresa("") // Clear field for any error
     } finally {
       setLoading(false)
     }

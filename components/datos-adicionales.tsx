@@ -71,6 +71,13 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
     const validationError = validarDatos()
     if (validationError) {
       setError("Los datos ingresados no son válidos. Intenta nuevamente.")
+      // Clear all form fields when validation fails
+      setFormData({
+        nombreEmpresa: "",
+        direccionEmpresa: "",
+        codigoPostalEmpresa: "",
+        nroTelefonoEmpresa: "",
+      })
       return
     }
 
@@ -89,6 +96,13 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
       onEmpresaRegistrada(empresaCompleta)
     } catch (error) {
       setError("Error al registrar la empresa. Intente nuevamente.")
+      // Clear all form fields when there's an error
+      setFormData({
+        nombreEmpresa: "",
+        direccionEmpresa: "",
+        codigoPostalEmpresa: "",
+        nroTelefonoEmpresa: "",
+      })
     } finally {
       setLoading(false)
     }
@@ -120,8 +134,8 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2">
+            <div className="space-y-4">
+              <div>
                 <Label htmlFor="nombreEmpresa">
                   Nombre de la Empresa <span className="text-red-500">*</span>
                 </Label>
@@ -135,50 +149,52 @@ export function DatosAdicionales({ cuitEmpresa, onEmpresaRegistrada, onVolver }:
                 />
               </div>
 
-              <div className="md:col-span-2">
+              <div>
                 <Label htmlFor="direccionEmpresa">
                   Dirección <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="direccionEmpresa"
                   type="text"
-                  placeholder="Ej: Av. Corrientes 1234"
+                  placeholder="Ej: Av. Corrientes"
                   value={formData.direccionEmpresa}
                   onChange={(e) => handleInputChange("direccionEmpresa", e.target.value)}
                   disabled={loading}
                 />
               </div>
 
-              <div>
-                <Label htmlFor="codigoPostalEmpresa">
-                  Código Postal <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="codigoPostalEmpresa"
-                  type="text"
-                  placeholder="Ej: 1043"
-                  value={formData.codigoPostalEmpresa}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/\D/g, "").slice(0, 4)
-                    handleInputChange("codigoPostalEmpresa", value)
-                  }}
-                  disabled={loading}
-                  maxLength={4}
-                />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="codigoPostalEmpresa">
+                    Código Postal <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="codigoPostalEmpresa"
+                    type="text"
+                    placeholder="Ej: 1043"
+                    value={formData.codigoPostalEmpresa}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, "").slice(0, 4)
+                      handleInputChange("codigoPostalEmpresa", value)
+                    }}
+                    disabled={loading}
+                    maxLength={4}
+                  />
+                </div>
 
-              <div>
-                <Label htmlFor="nroTelefonoEmpresa">
-                  Número de Teléfono <span className="text-red-500">*</span>
-                </Label>
-                <Input
-                  id="nroTelefonoEmpresa"
-                  type="text"
-                  placeholder="Ej: 11-1234-5678"
-                  value={formData.nroTelefonoEmpresa}
-                  onChange={(e) => handleInputChange("nroTelefonoEmpresa", e.target.value)}
-                  disabled={loading}
-                />
+                <div>
+                  <Label htmlFor="nroTelefonoEmpresa">
+                    Número de Teléfono <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="nroTelefonoEmpresa"
+                    type="text"
+                    placeholder="Ej: 11-1234-5678"
+                    value={formData.nroTelefonoEmpresa}
+                    onChange={(e) => handleInputChange("nroTelefonoEmpresa", e.target.value)}
+                    disabled={loading}
+                  />
+                </div>
               </div>
             </div>
 

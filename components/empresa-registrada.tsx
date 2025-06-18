@@ -66,12 +66,17 @@ export function EmpresaRegistrada({ datosEmpresa, onNuevoRegistro }: EmpresaRegi
               </p>
             </div>
 
-            <div className="md:col-span-2">
+            <div>
               <Label className="text-sm font-medium text-muted-foreground">Dirección</Label>
               <p className="font-medium flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
-                {datosEmpresa.direccionEmpresa} - CP: {datosEmpresa.codigoPostalEmpresa}
+                {datosEmpresa.direccionEmpresa}
               </p>
+            </div>
+
+            <div>
+              <Label className="text-sm font-medium text-muted-foreground">Código Postal</Label>
+              <p className="font-medium">{datosEmpresa.codigoPostalEmpresa}</p>
             </div>
           </div>
         </CardContent>
